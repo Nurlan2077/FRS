@@ -74,6 +74,7 @@ canvas {
     font-size: 3rem;
     display: inline;
     line-height: 1;
+    line-height: 1.25em;
   }
 
   .left {

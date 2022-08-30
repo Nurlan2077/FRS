@@ -1,12 +1,11 @@
 import './style.css'
-
 import * as THREE from 'three';
+import { createClothesItem } from './clothes_loader.js'
 
-//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75,                                    // Видимость мира в градусах.
+const camera = new THREE.PerspectiveCamera(75,                                    // Угол обзора мира.
                                           window.innerWidth / window.innerHeight, // Соотношение сторон пользователя.
                                           0.1,                                    // Область видимости (ближайшая). 
                                           1000);                                  // Область видиости (дальнейшая).
@@ -18,15 +17,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-camera.position.setZ(30);
-
 renderer.render(scene, camera)
-
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshStandardMaterial({color: 0xFF3467});
-const torus = new THREE.Mesh(geometry, material);
-
-scene.add(torus)
 
 const pointLight = new THREE.PointLight(0xFFFFFF)
 pointLight.position.set(5, 5, 5)
@@ -35,12 +26,8 @@ const ambientLight = new THREE.AmbientLight(0xFFFFFF);
 
 scene.add(pointLight, ambientLight)
 
-const lightHelper = new THREE.PointLightHelper(pointLight);
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper);
-
-
-//const controls = new OrbitControls(camera, renderer.domElement);
+// Для ручного пермещения камеры.
+// const cameraControls = new OrbitControls(camera, renderer.domElement);
 
 function addStar(){
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -56,64 +43,180 @@ function addStar(){
 // Заполнение сцены звездами.
 Array(200).fill().forEach(addStar);
 
-const spaceTexture = new THREE.TextureLoader().load('images/space_texture.jpg');
-scene.background = spaceTexture;
-
+scene.background = new THREE.Color( 0x4676db )
 
 const myFaceTexture = new THREE.TextureLoader().load('images/nurlan.jpg')
 
+
 const myFaceCube = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
+  // new THREE.DodecahedronGeometry(5),
+  // new THREE.TetrahedronGeometry(3),
   new THREE.MeshBasicMaterial({map: myFaceTexture})
 )
 
 scene.add(myFaceCube);
 
-const marsTexture = new THREE.TextureLoader().load('images/mars.jpg')
-const marsNormalTexture = new THREE.TextureLoader().load('images/normal.jpg')
 
-const mars = new THREE.Mesh(
-  new THREE.SphereGeometry(3, 32, 32),
-  new THREE.MeshStandardMaterial({
-    map: marsTexture,
-    normalMap: marsNormalTexture
+// Загрузка внешних 3D-моделей.
+let clothes = []
+
+// Футболка.
+createClothesItem(
+          '/3d_models/t-shirt/T-Shirt.obj',                     // Модель.
+          "/3d_models/t-shirt/T-Shirt_FABRIC_BaseColor.png",    // Текстурки.
+          [5, 7, -8],                                           // Позиция на сцене.
+          [0.05, 0.05, 0.05]                                    // Размер. 
+          )
+          .then(function(a){
+            a.rotation.y = 90
+            scene.add(a)
+            clothes.push(a)
+          })
+
+
+// Футболка 2.
+createClothesItem(
+  '/3d_models/t-shirt/T-Shirt.obj',                    
+  "/3d_models/t-shirt/nirvana.jpg",   
+  [-4, 20, -8],                                         
+  [0.05, 0.05, 0.05]                                    
+  )
+  .then(function(a){
+    scene.add(a)
+    clothes.push(a)
   })
-);
-
-scene.add(mars)
 
 
-mars.position.z = 30
-mars.position.x = -10;
+// Обувь.
+createClothesItem(
+  '/3d_models/Shoe/Shoe.obj',                    
+  "/3d_models/Shoe/Shoe.mtl",   
+  [-4, 23, -5],                                         
+  [0.01, 0.01, 0.01]                                    
+  )
+  .then(function(a){
+    scene.add(a)
+    clothes.push(a)
+  })
+
+
+// Свитер.
+createClothesItem(
+  '3d_models/sweater/OBJ Export/A-Pose_ThinWalled.obj',
+  "3d_models/sweater/Grey Used Tex 01/BASE/WoolSweater_V02_N-Pose__Rib_1X1_486gsm_FRONT_2563_Height.1001.png",    
+  [-4, 14, -5],                                         
+  [0.05, 0.05, 0.05]                                   
+  )
+  .then(function(a){
+    a.rotation.y = -90
+    scene.add(a)
+    clothes.push(a)
+  })
+
+
+// Бра.
+createClothesItem(
+  '/3d_models/bra/OBJ/AFJ00004.obj',
+  "/3d_models/bra/bra-mat.png",    
+  [9, 11, -11],                                         
+  [0.05, 0.05, 0.05]                                   
+  )
+  .then(function(a){
+    scene.add(a)
+    clothes.push(a)
+  })
+
+
+// Топ и шорты.
+createClothesItem(
+  '/3d_models/ShortsAndUndergarment/Top&Briefs/Top&Briefs_01.OBJ',
+  "/3d_models/t-shirt/T-Shirt_FABRIC_Normal.png",    
+  [7, 20, -5],                                         
+  [0.05, 0.05, 0.05]                                   
+  )
+  .then(function(a){
+    scene.add(a)
+    clothes.push(a)
+  })
+
+
+// Трусы.
+let pants;
+
+createClothesItem(
+  '/3d_models/pants/clothes005.obj', 
+  "/3d_models/pants/tex_shorts_striped_anime.png",    
+  [0, 0, -43],                                         
+  [6, 6, 6]                                   
+  )
+  .then(function(a){
+
+    pants = a
+
+    // Позволяет трусам вращаться вокруг своей оси.
+    var box = new THREE.Box3().setFromObject( a );
+    box.getCenter(a.position);
+    a.position.multiplyScalar(-1);
+    var pivot = new THREE.Group();
+    scene.add(pivot);
+    pivot.add(a);
+    a.children[0].geometry.center();
+
+
+    scene.add(a)
+    // animateClothes()
+    animatePants();
+  })
+
 
 function moveCamera(){
   const rangeFromTop = document.body.getBoundingClientRect().top;
 
-  mars.rotation.x += 0.05;
-  mars.rotation.y += 0.075;
-  mars.rotation.z += 0.05;
+  // mars.rotation.x += 0.05;
+  // mars.rotation.y += 0.075;
+  // mars.rotation.z += 0.05;
 
   myFaceCube.rotation.y += 0.01;
   myFaceCube.rotation.z += 0.01;
 
-  camera.position.z = rangeFromTop * -0.01;
-  camera.position.x = rangeFromTop * -0.0002;
-  camera.position.y = rangeFromTop * -0.0002;
+  for (let i = 0; i < clothes.length; i++){
+    clothes[i].rotation.y += 0.015;
+  }
+
+  
+  if (rangeFromTop < 0){
+    camera.position.z = rangeFromTop * -0.01;
+    camera.position.x = rangeFromTop * -0.0002;
+    camera.position.y = rangeFromTop * -0.0002;
+  }
+  
 
 }
 
 document.body.onscroll = moveCamera
 
-function animate(){
-  requestAnimationFrame(animate);
 
-  torus.rotation.x += 0.01;
-  torus.rotation.y += 0.015;
-  torus.rotation.z += 0.01;
+function animatePants(){
+  requestAnimationFrame(animatePants);
 
-  //controls.update();
+  pants.rotation.x += 0.01;
+  pants.rotation.y += 0.015;
+  pants.rotation.z += 0.01;
+
+  // cameraControls.update();
 
   renderer.render(scene, camera);
 }
 
-animate();
+
+// Вращает всю одежду вокруг своей оси.
+function animateClothes(){
+  requestAnimationFrame(animateClothes);
+
+  for (let i = 0; i < clothes.length; i++){
+    clothes[i].rotation.y += 0.015;
+  }
+
+  renderer.render(scene, camera);
+}

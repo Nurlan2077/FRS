@@ -1,0 +1,22 @@
+# MTL Exporter v1.0 by Seungwoo Oh at CLO - Virtual Fashion Inc.
+newmtl BASE_FRONT_2109
+Ka 0.151254 0.139154 0.124028
+Kd 0.482122 0.443552 0.395340
+Ks 0.045000 0.045000 0.045000
+Ns 9.901810
+illum 2
+map_Kn C:/Users/WS-01/Desktop/MarvelousD/M_WoolSweater/CG-Trader/OBJ Export/A-Pose_ThinWalled_normal_1001.png
+newmtl CUFFS_FRONT_2121
+Ka 0.224864 0.219309 0.212521
+Kd 0.716755 0.699046 0.677410
+Ks 0.045000 0.045000 0.045000
+Ns 9.901810
+illum 2
+map_Kn C:/Users/WS-01/Desktop/MarvelousD/M_WoolSweater/CG-Trader/OBJ Export/A-Pose_ThinWalled_normal_1002.png
+newmtl COLLAR_FRONT_2130
+Ka 0.244023 0.153161 0.042108
+Kd 0.777824 0.488200 0.134219
+Ks 0.045000 0.045000 0.045000
+Ns 9.901810
+illum 2
+map_Kn C:/Users/WS-01/Desktop/MarvelousD/M_WoolSweater/CG-Trader/OBJ Export/A-Pose_ThinWalled_normal_1003.png
