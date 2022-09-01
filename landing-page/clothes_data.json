@@ -1,0 +1,46 @@
+{
+    "t-shirt":
+    {
+        "model_path": "/3d_models/t-shirt/T-Shirt.obj",
+        "texture_path": "/3d_models/t-shirt/T-Shirt_FABRIC_BaseColor.png",
+        "position": [5, 7, -8],
+        "scale": [0.05, 0.05, 0.05]
+    },
+    "t-shirt2":
+    {
+        "model_path": "/3d_models/t-shirt/T-Shirt.obj",
+        "texture_path": "/3d_models/t-shirt/nirvana.jpg",
+        "position": [-4, 20, -8],
+        "scale": [0.05, 0.05, 0.05]
+    },
+    "shoe":
+    {
+        "model_path": "/3d_models/Shoe/Shoe.obj",
+        "texture_path": "/3d_models/Shoe/Shoe.mtl",
+        "position": [-4, 23, -5],
+        "scale": [0.01, 0.01, 0.01]
+    },
+    "sweater":
+    {
+        "model_path": "/3d_models/sweater/OBJ Export/A-Pose_ThinWalled.obj",
+        "texture_path": "/3d_models/sweater/Grey Used Tex 01/BASE/WoolSweater_V02_N-Pose__Rib_1X1_486gsm_FRONT_2563_Height.1001.png",
+        "position": [-4, 14, -5],
+        "scale": [0.05, 0.05, 0.05]
+    },
+    "bra":
+    {
+        "model_path": "/3d_models/bra/OBJ/AFJ00004.obj",
+        "texture_path": "/3d_models/bra/bra-mat.png",
+        "position": [9, 11, -11],
+        "scale": [0.05, 0.05, 0.05]
+    },
+    "top&shorts":
+    {
+        "model_path": "/3d_models/ShortsAndUndergarment/Top&Briefs/Top&Briefs_01.OBJ",
+        "texture_path": "/3d_models/t-shirt/T-Shirt_FABRIC_Normal.png",
+        "position": [7, 20, -5],
+        "scale": [0.05, 0.05, 0.05]
+    }
+
+
+}

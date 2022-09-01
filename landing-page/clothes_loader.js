@@ -1,10 +1,13 @@
 import * as THREE from 'three';
 
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { randInt } from 'three/src/math/MathUtils';
 
 
 export class ClothesManager{
-    clothes = [];
+    static clothes = [];
+
+
 
     createClothesItem(modelPath, texturePath, position, scale = (1, 1, 1)){
         return new Promise(function(resolve, reject){
@@ -44,7 +47,27 @@ export class ClothesManager{
 
 
       loadAllClothes(scene){
-        
+
+        (async () => {
+            let DB = await(await fetch('clothes_data.json')).json();
+
+            for (let i in DB){
+                console.log(DB[i]["model_path"])
+                this.createClothesItem(DB[i]["model_path"],
+                                       DB[i]["texture_path"],
+                                       DB[i]["position"],
+                                       DB[i]["scale"])
+                                       .then(
+                                        function(a){
+                                            scene.add(a)
+                                            a.rotation.y = randInt(-120, 120)
+                                            ClothesManager.clothes.push(a)
+                                        }
+                                       )
+
+            }
+
+        })();
       }
 
 }
