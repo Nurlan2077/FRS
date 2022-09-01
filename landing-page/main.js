@@ -1,6 +1,6 @@
 import './style.css'
 import * as THREE from 'three';
-import { createClothesItem } from './clothes_loader.js'
+import { ClothesManager } from './clothes_loader.js'
 
 
 const scene = new THREE.Scene();
@@ -50,19 +50,17 @@ const myFaceTexture = new THREE.TextureLoader().load('images/nurlan.jpg')
 
 const myFaceCube = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
-  // new THREE.DodecahedronGeometry(5),
-  // new THREE.TetrahedronGeometry(3),
   new THREE.MeshBasicMaterial({map: myFaceTexture})
 )
 
 scene.add(myFaceCube);
 
+let clothesManager = new ClothesManager();
 
 // Загрузка внешних 3D-моделей.
-let clothes = []
 
 // Футболка.
-createClothesItem(
+clothesManager.createClothesItem(
           '/3d_models/t-shirt/T-Shirt.obj',                     // Модель.
           "/3d_models/t-shirt/T-Shirt_FABRIC_BaseColor.png",    // Текстурки.
           [5, 7, -8],                                           // Позиция на сцене.
@@ -71,12 +69,18 @@ createClothesItem(
           .then(function(a){
             a.rotation.y = 90
             scene.add(a)
-            clothes.push(a)
+
+            // clothes.push(a)
+
+            clothesManager.clothes.push(a)
+
+            // console.log(clothesManager.clothes[0])
+
           })
 
 
 // Футболка 2.
-createClothesItem(
+clothesManager.createClothesItem(
   '/3d_models/t-shirt/T-Shirt.obj',                    
   "/3d_models/t-shirt/nirvana.jpg",   
   [-4, 20, -8],                                         
@@ -84,12 +88,12 @@ createClothesItem(
   )
   .then(function(a){
     scene.add(a)
-    clothes.push(a)
+    clothesManager.clothes.push(a)
   })
 
 
 // Обувь.
-createClothesItem(
+clothesManager.createClothesItem(
   '/3d_models/Shoe/Shoe.obj',                    
   "/3d_models/Shoe/Shoe.mtl",   
   [-4, 23, -5],                                         
@@ -97,12 +101,12 @@ createClothesItem(
   )
   .then(function(a){
     scene.add(a)
-    clothes.push(a)
+    clothesManager.clothes.push(a)
   })
 
 
 // Свитер.
-createClothesItem(
+clothesManager.createClothesItem(
   '3d_models/sweater/OBJ Export/A-Pose_ThinWalled.obj',
   "3d_models/sweater/Grey Used Tex 01/BASE/WoolSweater_V02_N-Pose__Rib_1X1_486gsm_FRONT_2563_Height.1001.png",    
   [-4, 14, -5],                                         
@@ -111,12 +115,12 @@ createClothesItem(
   .then(function(a){
     a.rotation.y = -90
     scene.add(a)
-    clothes.push(a)
+    clothesManager.clothes.push(a)
   })
 
 
 // Бра.
-createClothesItem(
+clothesManager.createClothesItem(
   '/3d_models/bra/OBJ/AFJ00004.obj',
   "/3d_models/bra/bra-mat.png",    
   [9, 11, -11],                                         
@@ -124,12 +128,12 @@ createClothesItem(
   )
   .then(function(a){
     scene.add(a)
-    clothes.push(a)
+    clothesManager.clothes.push(a)
   })
 
 
 // Топ и шорты.
-createClothesItem(
+clothesManager.createClothesItem(
   '/3d_models/ShortsAndUndergarment/Top&Briefs/Top&Briefs_01.OBJ',
   "/3d_models/t-shirt/T-Shirt_FABRIC_Normal.png",    
   [7, 20, -5],                                         
@@ -137,14 +141,14 @@ createClothesItem(
   )
   .then(function(a){
     scene.add(a)
-    clothes.push(a)
+    clothesManager.clothes.push(a)
   })
 
 
 // Трусы.
 let pants;
 
-createClothesItem(
+clothesManager.createClothesItem(
   '/3d_models/pants/clothes005.obj', 
   "/3d_models/pants/tex_shorts_striped_anime.png",    
   [0, 0, -43],                                         
@@ -173,15 +177,11 @@ createClothesItem(
 function moveCamera(){
   const rangeFromTop = document.body.getBoundingClientRect().top;
 
-  // mars.rotation.x += 0.05;
-  // mars.rotation.y += 0.075;
-  // mars.rotation.z += 0.05;
-
   myFaceCube.rotation.y += 0.01;
   myFaceCube.rotation.z += 0.01;
 
-  for (let i = 0; i < clothes.length; i++){
-    clothes[i].rotation.y += 0.015;
+  for (let i = 0; i < clothesManager.clothes.length; i++){
+    clothesManager.clothes[i].rotation.y += 0.015;
   }
 
   
@@ -193,6 +193,7 @@ function moveCamera(){
   
 
 }
+
 
 document.body.onscroll = moveCamera
 
@@ -214,8 +215,8 @@ function animatePants(){
 function animateClothes(){
   requestAnimationFrame(animateClothes);
 
-  for (let i = 0; i < clothes.length; i++){
-    clothes[i].rotation.y += 0.015;
+  for (let i = 0; i < clothesManager.clothes.length; i++){
+    clothesManager.clothes[i].rotation.y += 0.015;
   }
 
   renderer.render(scene, camera);

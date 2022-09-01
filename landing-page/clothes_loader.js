@@ -3,7 +3,10 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 
-export function createClothesItem(modelPath, texturePath, position, scale = (1, 1, 1)){
+export class ClothesManager{
+    clothes = [];
+
+    createClothesItem(modelPath, texturePath, position, scale = (1, 1, 1)){
         return new Promise(function(resolve, reject){
           var loader = new OBJLoader();  
           
@@ -40,3 +43,8 @@ export function createClothesItem(modelPath, texturePath, position, scale = (1, 
       }
 
 
+      loadAllClothes(scene){
+        
+      }
+
+}
