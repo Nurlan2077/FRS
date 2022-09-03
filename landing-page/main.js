@@ -31,7 +31,14 @@ scene.add(pointLight, ambientLight)
 
 function addStar(){
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff})
+
+  let characters = "0123456789abcdef"
+  let colorHex = "0x"
+  for(let i = 0; i < 6; i++){
+    colorHex += characters[Math.floor(Math.random() * 16)]
+  }
+
+  const material = new THREE.MeshStandardMaterial({ color: parseInt(colorHex, 16)})
   const star = new THREE.Mesh(geometry, material);
 
   const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
