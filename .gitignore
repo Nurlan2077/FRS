@@ -5,3 +5,4 @@ content-search/!data_df_sample_10k_train25epochs.csv
 user_ratings_service/images
 user_ratings_service/static/images
 .idea
+venv
