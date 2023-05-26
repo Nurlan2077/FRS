@@ -1,0 +1,15 @@
+body {
+  font-family: Helvetica;
+  font-size: 1em;
+
+}
+
+.rate_button {
+    font-size: 2em;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
