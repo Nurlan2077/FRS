@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>FRS</title>
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+ <script type="text/javascript" src="{{ url_for('static',filename='script.js') }}"></script>
+</head>
+<body>
+<div id="images-container"></div><br>
+<button id="genrec">Сгенерировать рекомендации</button>
+
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="title">Похожие изображения</div>
+      <button data-close-button class="close-button">&times;</button>
+    </div>
+    <div class="modal-body">
+     <div id="similar-images-container"></div><br>
+    </div>
+  </div>
+  <div id="overlay"></div>
+
+</body>
+</html>

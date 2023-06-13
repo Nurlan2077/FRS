@@ -1,0 +1,10 @@
+version: "3.10"
+
+services:
+  uploader:
+    build:
+      context: ./
+    ports:
+      - 80:80
+    env_file:
+      - .env

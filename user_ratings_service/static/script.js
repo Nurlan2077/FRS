@@ -1,5 +1,6 @@
 
 url = "http://127.0.0.1:5000/";
+//url = "http://192.168.1.5:5000/";
 
 // Новый пользователь на сайте
 let user_id = fetch(url + "user_id").then(response => response.json());
